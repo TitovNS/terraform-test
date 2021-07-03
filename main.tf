@@ -2,12 +2,18 @@ provider "aws" {
   region = "us-east-2"
 }
 
+variable "server_PORT" {
+  description = "The port the server will use for HTTP requests"
+  type        = "number"
+  default     = "8080"
+}
+
 resource "aws_security_group" "instance" {
   name = "terraform-example-instance"
 
   ingress {
-    from_port   = 8080
-    to_port     = 8080
+    from_port   = var.server_PORT
+    to_port     = var.server_PORT
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
